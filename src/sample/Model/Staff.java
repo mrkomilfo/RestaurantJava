@@ -1,12 +1,13 @@
 package sample.Model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Staff
 {
     int idIterator = 0;
-    Map<Integer, Employee> personnel;
+    private Map<Integer, Employee> personnel;
 
     public Staff(Employee... employees)
     {
@@ -26,5 +27,22 @@ public class Staff
     public void dismiss(int id)
     {
         this.personnel.remove(id);
+    }
+
+    public Employee getEmployee(int id)
+    {
+        return personnel.get(id);
+    }
+
+    public Map<Integer, Employee> toMap()
+    {
+        return personnel;
+    }
+
+    static public Staff loadStaff()
+    {
+        Staff start_staff = new Staff();
+        //start_staff.recruit(new Employee());
+        return start_staff;
     }
 }
