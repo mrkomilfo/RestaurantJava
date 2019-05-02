@@ -7,11 +7,9 @@ import java.util.Map;
 
 public class Menu extends HashMap<String, Dish>
 {
-    //private Map<String, Dish> dishes;
 
     public Menu(Dish... dishes)
     {
-        //this.dishes = new HashMap<String, Dish>();
         for(Dish dish : dishes)
         {
             add(dish);

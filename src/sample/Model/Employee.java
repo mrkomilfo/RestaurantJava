@@ -1,6 +1,7 @@
 package sample.Model;
 
 import java.util.Date;
+import java.util.Dictionary;
 
 public class Employee {
     String name;
@@ -8,18 +9,20 @@ public class Employee {
     String patronymic;
     Date birthDate;
     String position;
-    Date employmentDate;
     int salary;
+    String login;
+    String password;
 
     public Employee(String name, String surname, String patronymic,
-                    Date birthDate, String position, Date employmentDate, int salary)
+                    Date birthDate, String position, int salary, String login, String password)
     {
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
         this.birthDate = birthDate;
         this.position = position;
-        this.employmentDate = employmentDate;
         this.salary = salary;
+        this.login = login;
+        this.password = password;
     }
 }

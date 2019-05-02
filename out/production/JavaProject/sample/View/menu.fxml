@@ -21,12 +21,12 @@
             <Font name="Lobster" size="32.0" />
          </font>
       </Label>
-      <Button fx:id="AdministrationButton" layoutX="164.0" layoutY="189.0" mnemonicParsing="false" onAction="#AdministrationButtonClick" style="-fx-background-color: #DEB887;" text="Администрация" textAlignment="CENTER" textFill="#332211">
+      <Button fx:id="administrationButton" layoutX="164.0" layoutY="189.0" mnemonicParsing="false" onAction="#AdministrationButtonClick" style="-fx-background-color: #DEB887;" text="Администрация" textAlignment="CENTER" textFill="#332211">
          <font>
             <Font name="Lobster" size="32.0" />
          </font>
       </Button>
-      <Button fx:id="CustomerButton" layoutX="161.0" layoutY="285.0" mnemonicParsing="false" onAction="#CustomerButtonClick" prefHeight="62.0" prefWidth="279.0" style="-fx-background-color: #DEB887;" text="Гость" textAlignment="CENTER" textFill="#332211">
+      <Button fx:id="customerButton" layoutX="161.0" layoutY="285.0" mnemonicParsing="false" onAction="#CustomerButtonClick" prefHeight="62.0" prefWidth="279.0" style="-fx-background-color: #DEB887;" text="Гость" textAlignment="CENTER" textFill="#332211">
          <font>
             <Font name="Lobster" size="32.0" />
          </font>

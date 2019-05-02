@@ -1,8 +1,9 @@
 package sample.Control;
 
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
+
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
@@ -19,24 +20,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import sample.Main;
-import sample.Model.Bill;
-import sample.Model.Dish;
-import sample.Model.Section;
+import sample.Model.*;
 import sample.Model.Menu;
 
 public class CustomerController {
-
-    private Bill bill;
-    private Menu menu;
-    private String buffer;
-
-    private TableView.TableViewSelectionModel<Dish> saladSelectionModel;
-    private TableView.TableViewSelectionModel<Dish> firstCourseSelectionModel;
-    private TableView.TableViewSelectionModel<Dish> garnishSelectionModel;
-    private TableView.TableViewSelectionModel<Dish> hotDishSelectionModel;
-    private TableView.TableViewSelectionModel<Dish> drinkSelectionModel;
-    private TableView.TableViewSelectionModel<Dish> dessertSelectionModel;
-    private TableView.TableViewSelectionModel<Section> billSelectionModel;
 
     @FXML
     private ResourceBundle resources;
@@ -154,9 +141,9 @@ public class CustomerController {
 
     @FXML
     void addDishButtonClick(ActionEvent event) {
-        if (buffer != null)
+        if (selectedDish != null)
         {
-            bill.add(menu.get(buffer));
+            bill.add(selectedDish);
             billTable.setItems(FXCollections.observableArrayList(bill.values()));
             billTable.refresh();
             totalLabel.setText(Double.toString(bill.getCost()));
@@ -166,9 +153,9 @@ public class CustomerController {
 
     @FXML
     void removeDishButtonClick(ActionEvent event) {
-        if (buffer != null)
+        if (selectedDish != null)
         {
-            bill.substract(buffer);
+            bill.substract(selectedDish.getName());
             billTable.setItems(FXCollections.observableArrayList(bill.values()));
             billTable.refresh();
             totalLabel.setText(Double.toString(bill.getCost()));
@@ -177,7 +164,8 @@ public class CustomerController {
 
     @FXML
     void backButtonClick(ActionEvent event) {
-        backButton.getScene().getWindow().hide();
+        Stage oldStage = (Stage)backButton.getScene().getWindow();
+        oldStage.hide();
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/sample/View/menu.fxml"));
@@ -191,7 +179,7 @@ public class CustomerController {
         Parent root = loader.getRoot();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.showAndWait();
+        stage.show();
     }
 
     @FXML
@@ -204,12 +192,15 @@ public class CustomerController {
 
     @FXML
     void confirmOrderButtonClick(ActionEvent event) {
-        //TODO: sending to admin
+        Main.addOrder(bill);
         bill.clear();
         billTable.setItems(FXCollections.observableArrayList(bill.values()));
-        billTable.refresh();
         totalLabel.setText("0.0");
     }
+
+    private Bill bill;
+    private Menu menu;
+    private Dish selectedDish;
 
     @FXML
     void initialize() {
@@ -249,77 +240,49 @@ public class CustomerController {
         saladTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Dish>() {
             @Override
             public void changed(ObservableValue<? extends Dish> observable, Dish oldValue, Dish newValue) {
-                saladSelectionModel = saladTable.getSelectionModel();
-                ObservableList selectedCells = saladSelectionModel.getSelectedCells();
-                TablePosition tablePosition = (TablePosition) selectedCells.get(0);
-                buffer = tablePosition.getTableColumn().getCellData(newValue).toString();
-                deselect(saladTable);
+                selectedDish = newValue;
             }
         });
 
         firstCourseTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Dish>() {
             @Override
             public void changed(ObservableValue<? extends Dish> observable, Dish oldValue, Dish newValue) {
-                firstCourseSelectionModel = firstCourseTable.getSelectionModel();
-                ObservableList selectedCells = firstCourseSelectionModel.getSelectedCells();
-                TablePosition tablePosition = (TablePosition) selectedCells.get(0);
-                buffer = tablePosition.getTableColumn().getCellData(newValue).toString();
-                deselect(firstCourseTable);
+                selectedDish = newValue;
             }
         });
 
         garnishTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Dish>() {
             @Override
             public void changed(ObservableValue<? extends Dish> observable, Dish oldValue, Dish newValue) {
-                garnishSelectionModel = garnishTable.getSelectionModel();
-                ObservableList selectedCells = garnishSelectionModel.getSelectedCells();
-                TablePosition tablePosition = (TablePosition) selectedCells.get(0);
-                buffer = tablePosition.getTableColumn().getCellData(newValue).toString();
-                deselect(garnishTable);
+                selectedDish = newValue;
             }
         });
 
         hotDishTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Dish>() {
             @Override
             public void changed(ObservableValue<? extends Dish> observable, Dish oldValue, Dish newValue) {
-                hotDishSelectionModel = hotDishTable.getSelectionModel();
-                ObservableList selectedCells = hotDishSelectionModel.getSelectedCells();
-                TablePosition tablePosition = (TablePosition) selectedCells.get(0);
-                buffer = tablePosition.getTableColumn().getCellData(newValue).toString();
-                deselect(hotDishTable);
+                selectedDish = newValue;
             }
         });
 
         drinkTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Dish>() {
             @Override
             public void changed(ObservableValue<? extends Dish> observable, Dish oldValue, Dish newValue) {
-                drinkSelectionModel = drinkTable.getSelectionModel();
-                ObservableList selectedCells = drinkSelectionModel.getSelectedCells();
-                TablePosition tablePosition = (TablePosition) selectedCells.get(0);
-                buffer = tablePosition.getTableColumn().getCellData(newValue).toString();
-                deselect(drinkTable);
+                selectedDish = newValue;
             }
         });
 
         dessertTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Dish>() {
             @Override
             public void changed(ObservableValue<? extends Dish> observable, Dish oldValue, Dish newValue) {
-                dessertSelectionModel = dessertTable.getSelectionModel();
-                ObservableList selectedCells = dessertSelectionModel.getSelectedCells();
-                TablePosition tablePosition = (TablePosition) selectedCells.get(0);
-                buffer = tablePosition.getTableColumn().getCellData(newValue).toString();
-                deselect(dessertTable);
+                selectedDish = newValue;
             }
         });
 
         billTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Dish>() {
             @Override
             public void changed(ObservableValue<? extends Dish> observable, Dish oldValue, Dish newValue) {
-                billSelectionModel = billTable.getSelectionModel();
-                ObservableList selectedCells = billSelectionModel.getSelectedCells();
-                TablePosition tablePosition = (TablePosition) selectedCells.get(0);
-                buffer = tablePosition.getTableColumn().getCellData(newValue).toString();
-                deselect(billTable);
+                selectedDish = newValue;
             }
         });
 
@@ -395,5 +358,3 @@ public class CustomerController {
         }
     }
 }
-
-

@@ -4,33 +4,63 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="558.0" prefWidth="800.0" style="-fx-background-color: #321;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Control.CustomerController">
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Control.CustomerController">
    <children>
-      <SplitPane dividerPositions="0.5" layoutY="62.0" prefHeight="538.0" prefWidth="800.0">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+      <HBox prefHeight="64.0" prefWidth="800.0" style="-fx-background-color: #321;">
+         <children>
+            <BorderPane prefHeight="58.0" prefWidth="120.0">
+               <center>
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonClick" prefHeight="32.0" prefWidth="78.0" style="-fx-background-color: #DEB887;" text="Назад" textAlignment="CENTER" textFill="#332211" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="Lobster" size="18.0" />
+                     </font>
+                  </Button>
+               </center>
+            </BorderPane>
+            <BorderPane prefHeight="58.0" prefWidth="723.0">
+               <center>
+                  <Label text="Ресторан &quot;Komilfo&quot;" textFill="CORNSILK" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="Lobster" size="32.0" />
+                     </font>
+                  </Label>
+               </center>
+            </BorderPane>
+         </children>
+      </HBox>
+      <HBox prefHeight="548.0" prefWidth="610.0">
+         <children>
+            <VBox prefHeight="538.0" prefWidth="396.0">
                <children>
-                  <Accordion fx:id="CustomerAccordion" layoutY="32.0" prefHeight="505.0" prefWidth="396.0">
-                    <panes>
-                      <TitledPane animated="false" prefHeight="370.0" prefWidth="296.0" text="Холодные закуски">
+                  <ButtonBar prefHeight="31.0" prefWidth="396.0">
+                     <buttons>
+                        <Button fx:id="addDishButton" minWidth="50.0" mnemonicParsing="false" onAction="#addDishButtonClick" prefHeight="26.0" text="+" />
+                        <Button fx:id="removeDishButton" minWidth="30.0" mnemonicParsing="false" onAction="#removeDishButtonClick" prefHeight="26.0" text="-" />
+                     </buttons>
+                  </ButtonBar>
+                  <Accordion fx:id="CustomerAccordion" prefHeight="505.0" prefWidth="396.0">
+                     <panes>
+                        <TitledPane animated="false" prefHeight="370.0" prefWidth="296.0" text="Холодные закуски">
                            <content>
                               <TableView fx:id="saladTable" prefHeight="200.0" prefWidth="200.0">
-                                <columns>
-                                  <TableColumn fx:id="saladName" prefWidth="236.0" text="Наименование" />
-                                  <TableColumn fx:id="saladOutput" minWidth="0.0" prefWidth="81.0" text="Выход (г.)" />
+                                 <columns>
+                                    <TableColumn fx:id="saladName" prefWidth="236.0" text="Наименование" />
+                                    <TableColumn fx:id="saladOutput" minWidth="0.0" prefWidth="81.0" text="Выход (г.)" />
                                     <TableColumn fx:id="saladPrice" minWidth="6.39996337890625" prefWidth="77.0" text="Цена" />
-                                </columns>
+                                 </columns>
                               </TableView>
-                           </content></TitledPane>
+                           </content>
+                        </TitledPane>
                         <TitledPane animated="false" prefHeight="370.0" prefWidth="296.0" text="Первые блюда">
                            <content>
                               <TableView fx:id="firstCourseTable" prefHeight="200.0" prefWidth="200.0">
@@ -86,78 +116,74 @@
                               </TableView>
                            </content>
                         </TitledPane>
-                    </panes>
+                     </panes>
                   </Accordion>
-                  <ButtonBar prefHeight="31.0" prefWidth="396.0">
-                     <buttons>
-                        <Button fx:id="addDishButton" minWidth="50.0" mnemonicParsing="false" onAction="#addDishButtonClick" prefHeight="26.0" text="+" />
-                        <Button fx:id="removeDishButton" minWidth="30.0" mnemonicParsing="false" onAction="#removeDishButtonClick" prefHeight="26.0" text="-" />
-                     </buttons>
-                  </ButtonBar>
                </children>
-            </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="551.0" prefWidth="421.0">
+            </VBox>
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <VBox prefHeight="537.0" prefWidth="396.0">
                <children>
-                  <BorderPane layoutY="51.0" prefHeight="400.0" prefWidth="396.0">
+                  <BorderPane prefHeight="55.0" prefWidth="396.0">
                      <center>
-                        <TableView fx:id="billTable" prefHeight="348.0" prefWidth="396.0" BorderPane.alignment="CENTER">
-                           <columns>
-                              <TableColumn fx:id="billName" prefWidth="159.0" text="Наименование" />
-                              <TableColumn fx:id="billOutput" minWidth="0.0" prefWidth="73.0" text="Выход" />
-                              <TableColumn fx:id="billNumber" minWidth="6.39996337890625" prefWidth="94.0" text="Количество" />
-                              <TableColumn fx:id="billPrice" maxWidth="132.0" minWidth="-1.0" prefWidth="69.0" text="Цена" />
-                           </columns>
-                        </TableView>
+                        <Label prefHeight="50.0" prefWidth="150.0" text="Ваш заказ" textAlignment="CENTER" textFill="#332211" BorderPane.alignment="CENTER">
+                           <font>
+                              <Font name="Lobster" size="32.0" />
+                           </font>
+                        </Label>
                      </center>
-                     <bottom>
-                        <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                           <items>
-                              <Label prefHeight="35.0" prefWidth="154.0" text="Итого:">
+                  </BorderPane>
+                  <TableView fx:id="billTable" prefHeight="401.0" prefWidth="436.0">
+                     <columns>
+                        <TableColumn fx:id="billName" prefWidth="159.0" text="Наименование" />
+                        <TableColumn fx:id="billOutput" minWidth="0.0" prefWidth="73.0" text="Выход" />
+                        <TableColumn fx:id="billNumber" minWidth="6.39996337890625" prefWidth="94.0" text="Количество" />
+                        <TableColumn fx:id="billPrice" maxWidth="132.0" minWidth="-1.0" prefWidth="67.99996948242188" text="Цена" />
+                     </columns>
+                  </TableView>
+                  <HBox prefHeight="51.0" prefWidth="396.0">
+                     <children>
+                        <BorderPane prefHeight="48.0" prefWidth="419.0">
+                           <left>
+                              <Label prefHeight="35.0" prefWidth="154.0" text="   Итого:" BorderPane.alignment="CENTER">
                                  <font>
                                     <Font name="Lobster" size="28.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="totalLabel" prefHeight="30.0" prefWidth="100.0" text="0.0">
+                           </left>
+                           <center>
+                              <Label fx:id="totalLabel" prefHeight="35.0" prefWidth="106.0" text="0.0" BorderPane.alignment="CENTER">
                                  <font>
-                                    <Font name="Lobster" size="24.0" />
+                                    <Font name="Lobster" size="28.0" />
                                  </font>
                               </Label>
-                              <Label text="BYN" textAlignment="RIGHT">
+                           </center>
+                           <right>
+                              <Label text="BYN     " textAlignment="RIGHT" BorderPane.alignment="CENTER">
                                  <font>
-                                    <Font name="Lobster" size="24.0" />
+                                    <Font name="Lobster" size="28.0" />
                                  </font>
                               </Label>
-                           </items>
-                        </ToolBar>
-                     </bottom>
-                  </BorderPane>
-                  <Label layoutX="123.0" layoutY="3.0" text="Ваш заказ" textFill="#332211">
-                     <font>
-                        <Font name="Lobster" size="32.0" />
-                     </font>
-                  </Label>
-                  <Button fx:id="confirmOrderButton" layoutX="218.0" layoutY="463.0" mnemonicParsing="false" onAction="#confirmOrderButtonClick" prefHeight="60.0" prefWidth="144.0" text="Подтвердить заказ" wrapText="true">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="cancelOrderButton" layoutX="34.0" layoutY="463.0" mnemonicParsing="false" onAction="#cancelOrderButtonClick" prefHeight="60.0" prefWidth="144.0" text="Отменить заказ" wrapText="true">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-               </children></AnchorPane>
-        </items>
-      </SplitPane>
-      <Label layoutX="361.0" layoutY="11.0" text="Меню" textFill="CORNSILK">
-         <font>
-            <Font name="Lobster" size="32.0" />
-         </font>
-      </Label>
-      <Button fx:id="backButton" layoutX="14.0" layoutY="13.0" mnemonicParsing="false" onAction="#backButtonClick" prefHeight="32.0" prefWidth="78.0" style="-fx-background-color: #DEB887;" text="Назад" textAlignment="CENTER" textFill="#332211">
-         <font>
-            <Font name="Lobster" size="18.0" />
-         </font>
-      </Button>
+                           </right>
+                        </BorderPane>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="49.0" prefWidth="396.0">
+                     <children>
+                        <Button fx:id="cancelOrderButton" mnemonicParsing="false" onAction="#cancelOrderButtonClick" prefHeight="43.0" prefWidth="221.0" text="Отменить заказ" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="confirmOrderButton" mnemonicParsing="false" onAction="#confirmOrderButtonClick" prefHeight="43.0" prefWidth="208.0" text="Подтвердить заказ" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
    </children>
-</AnchorPane>
+</VBox>

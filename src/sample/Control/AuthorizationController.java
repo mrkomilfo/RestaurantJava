@@ -9,9 +9,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class MenuController {
+public class AuthorizationController {
 
     @FXML
     private ResourceBundle resources;
@@ -20,18 +22,24 @@ public class MenuController {
     private URL location;
 
     @FXML
-    private Button administrationButton;
+    private Button backButton;
 
     @FXML
-    private Button customerButton;
+    private PasswordField passwordField;
 
     @FXML
-    void AdministrationButtonClick(ActionEvent event) {
-        Stage oldStage = (Stage)administrationButton.getScene().getWindow();
+    private TextField loginField;
+
+    @FXML
+    private Button enterButton;
+
+    @FXML
+    void backButtonClick(ActionEvent event) {
+        Stage oldStage = (Stage)backButton.getScene().getWindow();
         oldStage.hide();
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/sample/View/authorization.fxml"));
+        loader.setLocation(getClass().getResource("/sample/View/menu.fxml"));
 
         try {
             loader.load();
@@ -42,16 +50,17 @@ public class MenuController {
         Parent root = loader.getRoot();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.show();
+        stage.showAndWait();
+        oldStage.close();
     }
 
     @FXML
-    void CustomerButtonClick(ActionEvent event) {
-        Stage oldStage = (Stage)customerButton.getScene().getWindow();
+    void enterButtonClick(ActionEvent event) {
+        Stage oldStage = (Stage)enterButton.getScene().getWindow();
         oldStage.hide();
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/sample/View/customer.fxml"));
+        loader.setLocation(getClass().getResource("/sample/View/administration.fxml"));
 
         try {
             loader.load();
@@ -67,6 +76,7 @@ public class MenuController {
 
     @FXML
     void initialize() {
+
     }
 }
 
