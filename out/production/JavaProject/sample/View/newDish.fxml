@@ -39,12 +39,12 @@
             <Insets bottom="24.0" left="32.0" right="32.0" top="24.0" />
          </VBox.margin>
          <children>
-            <Label text="Название">
+            <Label text="Название" GridPane.rowIndex="1">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label text="Тип" GridPane.rowIndex="1">
+            <Label text="Тип">
                <font>
                   <Font size="14.0" />
                </font>
@@ -59,10 +59,10 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="nameField" GridPane.columnIndex="1" />
+            <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="outputField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="costField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <ComboBox fx:id="typePicker" prefHeight="26.0" prefWidth="209.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ComboBox fx:id="typePicker" prefHeight="26.0" prefWidth="209.0" GridPane.columnIndex="1" />
          </children>
       </GridPane>
       <HBox prefHeight="48.0" prefWidth="400.0">
@@ -72,7 +72,7 @@
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButtonClick" prefHeight="200.0" prefWidth="200.0" text="Добавить">
+            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButtonClick" prefHeight="200.0" prefWidth="200.0" text="Сохранить">
                <font>
                   <Font size="24.0" />
                </font>

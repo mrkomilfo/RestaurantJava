@@ -51,6 +51,11 @@ public class newDishController {
 
     @FXML
     void saveButtonClick(ActionEvent event) {
+        if (typePicker.getEditor().getText().length() == 0)
+        {
+            showErrorDialog("Неверные данные!", "Выберите тип блюда.");
+            return;
+        }
         if (nameField.getText().length() == 0)
         {
             showErrorDialog("Неверные данные!", "Блюдо должно иметь название.");
@@ -104,7 +109,7 @@ public class newDishController {
     @FXML
     void initialize() {
         typePicker.setItems(FXCollections.observableArrayList("Холодные закуски", "Первое блюдо", "Гарниры", "Горячие блюда", "Напитки", "Десерты"));
-        typePicker.setPromptText("Холодные закуски");
+        typePicker.setPromptText(null);
     }
 }
 

@@ -16,9 +16,11 @@ public class Main extends Application {
     static Staff staff;
     static Map<Integer, Order> orders;
     static int number = 0;
+    static Employee account;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        menu = new Menu();
         menu = Menu.loadMenu();
         staff = Staff.loadStaff();
         orders = new HashMap<>();
@@ -26,6 +28,11 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("View/menu.fxml"));
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+    }
+
+    static public void changePassword(String login, String newPassword)
+    {
+        staff.get(login).password = newPassword;
     }
 
     static public Menu getMenu()
@@ -48,9 +55,14 @@ public class Main extends Application {
         return staff;
     }
 
-    public void dismissEmployee(int id)
+    static public void addEmployee(Employee newEmployee)
     {
-        staff.dismiss(id);
+        staff.recruit(newEmployee);
+    }
+
+    static public void dismissEmployee(String login)
+    {
+        staff.dismiss(login);
     }
 
     public static void addOrder(Bill bill)
@@ -67,6 +79,21 @@ public class Main extends Application {
     public static void closeOrder(int key)
     {
         orders.remove(key);
+    }
+
+    public static boolean login(String login, String password)
+    {
+        if ( !password.equals(staff.get(login).password))
+        {
+            return false;
+        }
+        account = staff.get(login);
+        return true;
+    }
+
+    public static Employee getAccount()
+    {
+        return account;
     }
 
     public static void main(String[] args) {

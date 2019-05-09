@@ -1,17 +1,13 @@
 package sample.Model;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 
-public class Staff
+public class Staff extends HashMap<String, Employee>
 {
-    int idIterator = 0;
-    private Map<Integer, Employee> personnel;
-
     public Staff(Employee... employees)
     {
-        this.personnel = new HashMap<Integer, Employee>();
         for(Employee employee : employees)
         {
             recruit(employee);
@@ -20,29 +16,21 @@ public class Staff
 
     public void recruit(Employee employee)
     {
-        this.personnel.put(idIterator, employee);
-        idIterator++;
+        this.put(employee.login, employee);
     }
 
-    public void dismiss(int id)
+    public void dismiss(String login)
     {
-        this.personnel.remove(id);
-    }
-
-    public Employee getEmployee(int id)
-    {
-        return personnel.get(id);
-    }
-
-    public Map<Integer, Employee> toMap()
-    {
-        return personnel;
+        this.remove(login);
     }
 
     static public Staff loadStaff()
     {
         Staff start_staff = new Staff();
-        //start_staff.recruit(new Employee());
+        start_staff.recruit(new Employee("Дорофеев", "Валентин", "Игоревич",
+                 LocalDate.of(2000, 02, 17), "Главный администратор", 500, "komilfo",
+                "1312", true, false, true, false,
+                true, false));
         return start_staff;
     }
 }

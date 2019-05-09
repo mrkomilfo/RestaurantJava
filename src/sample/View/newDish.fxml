@@ -72,7 +72,7 @@
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButtonClick" prefHeight="200.0" prefWidth="200.0" text="Добавить">
+            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButtonClick" prefHeight="200.0" prefWidth="200.0" text="Сохранить">
                <font>
                   <Font size="24.0" />
                </font>

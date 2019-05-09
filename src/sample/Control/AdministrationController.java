@@ -2,6 +2,7 @@ package sample.Control;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -9,7 +10,6 @@ import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,10 +20,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import sample.Main;
-import sample.Model.Dish;
+import sample.Model.*;
 import sample.Model.Menu;
-import sample.Model.Order;
-import sample.Model.Section;
 
 public class AdministrationController {
 
@@ -32,6 +30,36 @@ public class AdministrationController {
 
     @FXML
     private URL location;
+
+    @FXML
+    private Tab mainTab;
+
+    @FXML
+    private Label surnameLabel;
+
+    @FXML
+    private Label nameLabel;
+
+    @FXML
+    private Label patronymicLabel;
+
+    @FXML
+    private Label birthdayLabel;
+
+    @FXML
+    private Label positionLabel;
+
+    @FXML
+    private Label salaryLabel;
+
+    @FXML
+    private Label loginLabel;
+
+    @FXML
+    private Label passwordLabel;
+
+    @FXML
+    private Button changePasswordButton;
 
     @FXML
     private Tab menuTab;
@@ -52,6 +80,9 @@ public class AdministrationController {
     private TableColumn<Dish, Integer> dishCostColumn;
 
     @FXML
+    private HBox menuButtonsPanel;
+
+    @FXML
     private Button deleteDishButton;
 
     @FXML
@@ -67,7 +98,7 @@ public class AdministrationController {
     private TextField dishCostField;
 
     @FXML
-    private ComboBox<?> dishTypePicker;
+    private ComboBox<String> dishTypePicker;
 
     @FXML
     private TextField dishNameField;
@@ -76,13 +107,13 @@ public class AdministrationController {
     private Tab emplyeersTab;
 
     @FXML
-    private TableView<?> staffTable;
+    private TableView<Employee> staffTable;
 
     @FXML
-    private TableColumn<?, ?> employeeSNPColumn;
+    private TableColumn<Employee, String> employeeSNPColumn;
 
     @FXML
-    private TableColumn<?, ?> employeePositionColumn;
+    private TableColumn<Employee, String> employeePositionColumn;
 
     @FXML
     private HBox employeesButtonsPanel;
@@ -133,10 +164,10 @@ public class AdministrationController {
     private CheckBox menuReadonly;
 
     @FXML
-    private CheckBox staffReadonly;
+    private CheckBox employeesReadonly;
 
     @FXML
-    private CheckBox orderReadonly;
+    private CheckBox ordersReadonly;
 
     @FXML
     private Tab ordersTab;
@@ -172,6 +203,26 @@ public class AdministrationController {
     private Button backButton;
 
     @FXML
+    void changePasswordButtonClick(ActionEvent event) {
+        Stage oldStage = (Stage)changePasswordButton.getScene().getWindow();
+        oldStage.hide();
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/sample/View/changePassword.fxml"));
+
+        try {
+            loader.load();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+    @FXML
     void backButtonClick(ActionEvent event) {
         Stage oldStage = (Stage)backButton.getScene().getWindow();
         oldStage.hide();
@@ -189,13 +240,6 @@ public class AdministrationController {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
-    }
-
-    @FXML
-    void closeOrderButtonClicked(ActionEvent event) {
-        Main.closeOrder(selectedOrder.getNumber());
-        loadOrders();
-        orderTable.getItems().clear();
     }
 
     @FXML
@@ -224,6 +268,8 @@ public class AdministrationController {
             Main.deleteDish(selectedDish.getName());
             menu.get(selectedDish.getType()).remove(selectedDish.getName());
             menuTable.setItems(FXCollections.observableArrayList(menu.get(menuTypePicker.getValue()).values()));
+            selectedDish = null;
+            clearMenuFields();
         }
     }
 
@@ -248,38 +294,94 @@ public class AdministrationController {
             showErrorDialog("Неверные данные!", "Неверно задана стоимость.");
             return;
         }
-        Dish newDish = new Dish(dishTypePicker.getPromptText(), dishNameField.getText(), Double.parseDouble(dishCostField.getText()), Integer.parseInt(dishOutputField.getText()));
         menu.get(selectedDish.getType()).remove(selectedDish.getName());
         Main.deleteDish(selectedDish.getName());
+        selectedDish = null;
+        Dish newDish = new Dish(dishTypePicker.getPromptText(), dishNameField.getText(),
+                Double.parseDouble(dishCostField.getText()), Integer.parseInt(dishOutputField.getText()));
         menu.get(newDish.getType()).add(newDish);
         Main.addDish(newDish);
         menuTable.setItems(FXCollections.observableArrayList(menu.get(selectedDish.getType()).values()));
+        clearMenuFields();
+        menuTable.getSelectionModel().clearSelection();
     }
 
     @FXML
     void addEmployeeButtonClicked(ActionEvent event) {
+        Stage oldStage = (Stage)addEmployeeButton.getScene().getWindow();
+        oldStage.hide();
 
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/sample/View/newEmployee.fxml"));
+
+        try {
+            loader.load();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     @FXML
     void deleteEmployeeButtonClicked(ActionEvent event) {
-
+        if (selectedEmployee != null) {
+            Main.dismissEmployee(selectedEmployee.login);
+            staff.dismiss(selectedEmployee.login);
+            staffTable.setItems(FXCollections.observableArrayList(staff.values()));
+            selectedEmployee = null;
+            clearEmployeesFields();
+        }
     }
 
     @FXML
     void editEmployeeButtonClicked(ActionEvent event) {
-
+        if (selectedEmployee == null)
+        {
+            showErrorDialog("Сотрудник не выбран!", "Выберите сотрудника.");
+            return;
+        }
+        if (surnameField.getText().length() == 0 || nameField.getText().length() == 0 || patronomycField.getText().length() == 0 ||
+                birthdayPicker.getEditor().getText().length() == 0 || positionField.getText().length() == 0 || loginField.getText().length() == 0)
+        {
+            showErrorDialog("Неверные данные!", "Все поля должны быть заполнены.");
+            return;
+        }
+        if (!salaryField.getText().matches("\\d+(\\.\\d+)?") )
+        {
+            showErrorDialog("Неверные данные!", "Оклад задан неверно.");
+            return;
+        }
+        if (passwordField.getText().length() < 4)
+        {
+            showErrorDialog("Неверные данные!", "Пароль должен состоять как минимум из 4 символов.");
+            return;
+        }
+        Main.dismissEmployee(selectedEmployee.login);
+        staff.dismiss(selectedEmployee.login);
+        selectedEmployee = null;
+        Employee newEmployee = new Employee(surnameField.getText(), nameField.getText(), patronomycField.getText(),
+                birthdayPicker.getValue(), positionField.getText(), Double.parseDouble(salaryField.getText()),
+                loginField.getText(), passwordField.getText(), menuAccess.isSelected(), menuReadonly.isSelected(),
+                employeesAccess.isSelected(), employeesReadonly.isSelected(), ordersAccess.isSelected(), ordersReadonly.isSelected());
+        Main.addEmployee(newEmployee);
+        staff.recruit(newEmployee);
+        clearEmployeesFields();
+        staffTable.getSelectionModel().clearSelection();
     }
 
-    private Map<Integer, Order> orders;
-    private Order selectedOrder;
-    private Dish selectedDish;
-    private Map<String, Menu> menu;
-
-    void loadOrders()
-    {
-        orders = Main.getOrders();
-        allOrdersTable.setItems(FXCollections.observableArrayList(orders.values()));
+    @FXML
+    void closeOrderButtonClicked(ActionEvent event) {
+        if (selectedOrder != null) {
+            Main.closeOrder(selectedOrder.getNumber());
+            orders = Main.getOrders();
+            allOrdersTable.setItems(FXCollections.observableArrayList(orders.values()));
+            orderTable.getItems().clear();
+            selectedOrder = null;
+        }
     }
 
     private Map<String, Menu> loadMenu()
@@ -308,10 +410,83 @@ public class AdministrationController {
         alert.showAndWait();
     }
 
+    void clearEmployeesFields()
+    {
+        surnameField.clear();
+        nameField.clear();
+        patronomycField.clear();
+        birthdayPicker.setValue(null);
+        positionField.clear();
+        salaryField.clear();
+        loginField.clear();
+        passwordField.clear();
+        menuAccess.setSelected(false);
+        menuReadonly.setSelected(false);
+        employeesAccess.setSelected(false);
+        employeesReadonly.setSelected(false);
+        ordersAccess.setSelected(false);
+        ordersReadonly.setSelected(false);
+    }
+
+    void clearMenuFields()
+    {
+        dishTypePicker.setPromptText(null);
+        dishNameField.clear();
+        dishOutputField.clear();
+        dishCostField.clear();
+    }
+
+    private Dish selectedDish;
+    private Employee selectedEmployee;
+    private Order selectedOrder;
+    private Map<String, Menu> menu;
+    private Staff staff;
+    private Map<Integer, Order> orders;
+    private Employee account;
+
     @FXML
-    void initialize() {
+    void initialize(){
+        account = Main.getAccount();
+
+        mainTab.isSelected();
+        surnameLabel.setText(account.surname);
+        nameLabel.setText(account.name);
+        patronymicLabel.setText(account.patronymic);
+        birthdayLabel.setText(account.birthDate.toString());
+        positionLabel.setText(account.position);
+        salaryLabel.setText(Double.toString(account.salary));
+        loginLabel.setText(account.login);
+        passwordLabel.setText(account.password);
+
+        if (!account.menuRoot)
+        {
+            menuTab.setDisable(true);
+        }
+        else if (account.menuRootReadOnly)
+        {
+            menuButtonsPanel.setDisable(true);
+        }
+        if (!account.employeesRoot)
+        {
+            emplyeersTab.setDisable(true);
+        }
+        else if (account.employeesRootReadOnly)
+        {
+            employeesButtonsPanel.setDisable(true);
+        }
+        if (!account.ordersRoot)
+        {
+            ordersTab.setDisable(true);
+        }
+        else if (account.ordersRootReadOnly)
+        {
+            closeOrderButton.setDisable(true);
+        }
+
         menuTypePicker.setItems(FXCollections.observableArrayList("Холодные закуски", "Первое блюдо" , "Гарниры",
                                                                          "Горячие блюда", "Напитки", "Десерты"));
+        dishTypePicker.setItems(FXCollections.observableArrayList("Холодные закуски", "Первое блюдо" , "Гарниры",
+                "Горячие блюда", "Напитки", "Десерты"));
         dishNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         dishOutputColumn.setCellValueFactory(new PropertyValueFactory<>("output"));
         dishCostColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
@@ -326,18 +501,113 @@ public class AdministrationController {
         menuTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Dish>() {
             @Override
             public void changed(ObservableValue<? extends Dish> observable, Dish oldValue, Dish newValue) {
-                dishTypePicker.setPromptText(newValue.getType());
-                dishNameField.setText(newValue.getName());
-                dishOutputField.setText(Integer.toString(newValue.getOutput()));
-                dishCostField.setText(Double.toString(newValue.getPrice()));
-                selectedDish = newValue;
+                if (newValue != null) {
+                    dishTypePicker.setPromptText(newValue.getType());
+                    dishNameField.setText(newValue.getName());
+                    dishOutputField.setText(Integer.toString(newValue.getOutput()));
+                    dishCostField.setText(Double.toString(newValue.getPrice()));
+                    selectedDish = newValue;
+                }
+            }
+        });
+
+        employeeSNPColumn.setCellValueFactory(new PropertyValueFactory<>("SNP"));
+        employeePositionColumn.setCellValueFactory(new PropertyValueFactory<>("position"));
+
+        staff = Main.getStaff();
+        staffTable.setItems(FXCollections.observableArrayList(staff.values()));
+
+        loginField.setDisable(true);
+
+        staffTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Employee>() {
+            @Override
+            public void changed(ObservableValue<? extends Employee> observable, Employee oldValue, Employee newValue) {
+                if (newValue != null) {
+                    surnameField.setText(newValue.surname);
+                    nameField.setText(newValue.name);
+                    patronomycField.setText(newValue.patronymic);
+                    birthdayPicker.setValue(newValue.birthDate);
+                    positionField.setText(newValue.position);
+                    salaryField.setText(Double.toString(newValue.salary));
+                    loginField.setText(newValue.login);
+                    passwordField.setText(newValue.password);
+                    selectedEmployee = newValue;
+                    menuAccess.setSelected(newValue.menuRoot);
+                    menuReadonly.setSelected(newValue.menuRootReadOnly);
+                    employeesAccess.setSelected(newValue.employeesRoot);
+                    employeesReadonly.setSelected(newValue.employeesRootReadOnly);
+                    ordersAccess.setSelected(newValue.ordersRoot);
+                    ordersReadonly.setSelected(newValue.ordersRootReadOnly);
+                }
+            }
+        });
+
+        menuAccess.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (!newValue && menuReadonly.isSelected())
+                {
+                    menuReadonly.setSelected(false);
+                }
+
+            }
+        });
+        menuReadonly.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (newValue && !menuAccess.isSelected())
+                {
+                    menuAccess.setSelected(true);
+                }
+
+            }
+        });
+        employeesAccess.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (!newValue && employeesReadonly.isSelected())
+                {
+                    employeesReadonly.setSelected(false);
+                }
+
+            }
+        });
+        employeesReadonly.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (newValue && !employeesAccess.isSelected())
+                {
+                    employeesAccess.setSelected(true);
+                }
+
+            }
+        });
+        ordersAccess.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (!newValue && ordersReadonly.isSelected())
+                {
+                    ordersReadonly.setSelected(false);
+                }
+
+            }
+        });
+        ordersReadonly.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (newValue && !ordersAccess.isSelected())
+                {
+                    ordersAccess.setSelected(true);
+                }
+
             }
         });
 
         orderNumberColumn.setCellValueFactory(new PropertyValueFactory<>("number"));
         orderTimeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
 
-        loadOrders();
+        orders = Main.getOrders();
+        allOrdersTable.setItems(FXCollections.observableArrayList(orders.values()));
 
         sectionNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         sectionOutputColumn.setCellValueFactory(new PropertyValueFactory<>("output"));
@@ -351,5 +621,7 @@ public class AdministrationController {
                 selectedOrder = newValue;
             }
         });
+
+
     }
 }

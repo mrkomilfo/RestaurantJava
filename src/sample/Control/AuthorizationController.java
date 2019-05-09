@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import sample.Main;
 
 public class AuthorizationController {
 
@@ -56,27 +57,29 @@ public class AuthorizationController {
 
     @FXML
     void enterButtonClick(ActionEvent event) {
-        Stage oldStage = (Stage)enterButton.getScene().getWindow();
-        oldStage.hide();
+        if (Main.login(loginField.getText(), passwordField.getText()))
+        {
+            Stage oldStage = (Stage) enterButton.getScene().getWindow();
+            oldStage.hide();
 
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/sample/View/administration.fxml"));
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/sample/View/administration.fxml"));
 
-        try {
-            loader.load();
-        } catch (IOException e){
-            e.printStackTrace();
+            try {
+                loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Parent root = loader.getRoot();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
         }
-
-        Parent root = loader.getRoot();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
     }
 
     @FXML
     void initialize() {
-
     }
 }
 

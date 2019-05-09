@@ -31,7 +31,7 @@ public class Menu extends HashMap<String, Dish>
         start_menu.add(new Dish("Гарниры", "Пюре картофельное", 2.3, 250));
         start_menu.add(new Dish("Гарниры", "Плов с бараниной", 5, 270));
         start_menu.add(new Dish("Горячие блюда", "Драники со сметаной", 2.5, 280));
-        start_menu.add(new Dish("Горячие блюда", "Котлета по-киевски", 4.5, 120));
+        start_menu.add(new Dish("Горячие блюда", "Котлета по-киевски", 4, 120));
         start_menu.add(new Dish("Напитки", "Чай", 2, 250));
         start_menu.add(new Dish("Напитки", "Кофе", 3, 250));
         start_menu.add(new Dish("Десерты", "Тирамису", 3.5, 180));

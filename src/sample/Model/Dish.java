@@ -10,8 +10,8 @@ public class Dish {
 
     public Dish(String type, String name, double price, int output)
     {
-        this.type = type;
         this.name = name;
+        this.type = type;
         this.price = price;
         this.output = output;
     }
