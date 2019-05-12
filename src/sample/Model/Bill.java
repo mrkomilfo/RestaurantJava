@@ -25,7 +25,7 @@ public class Bill extends HashMap<String, Section>{
 
     public void substract(String key)
     {
-        if (this.get(key).getNumber() > 1)
+        if (this.get(key).getQuantity() > 1)
         {
             this.get(key).decrement();
         }

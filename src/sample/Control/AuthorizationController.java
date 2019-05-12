@@ -8,10 +8,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import sample.DB.DatabaseHandler;
+import sample.Dialogs;
 import sample.Main;
 
 public class AuthorizationController {
@@ -57,7 +60,8 @@ public class AuthorizationController {
 
     @FXML
     void enterButtonClick(ActionEvent event) {
-        if (Main.login(loginField.getText(), passwordField.getText()))
+
+        if (Main.setAccount(DatabaseHandler.getUser(loginField.getText(), passwordField.getText())))
         {
             Stage oldStage = (Stage) enterButton.getScene().getWindow();
             oldStage.hide();
@@ -75,6 +79,11 @@ public class AuthorizationController {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
+        }
+        else
+        {
+            Dialogs.showErrorDialog("Ошибка!", "Неверный логин или пароль.");
+            return;
         }
     }
 

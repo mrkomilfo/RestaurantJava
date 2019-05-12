@@ -1,7 +1,5 @@
 package sample.Model;
 
-import java.util.ArrayList;
-
 public class Dish {
     protected String type;
     protected String name;

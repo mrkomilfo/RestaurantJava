@@ -1,36 +1,36 @@
 package sample.Model;
 
 public class Section extends Dish{
-    protected int number;
+    protected int quantity;
 
-    public Section(String type, String name, double price, int output) {
+    public Section(String type, String name, double price, int output, int quantity) {
         super(type, name, price, output);
-        number = 1;
+        this.quantity = quantity;
     }
 
     public Section(Dish dish) {
         super(dish.type, dish.name, dish.price, dish.output);
-        number = 1;
+        quantity = 1;
     }
 
-    public int getNumber()
+    public int getQuantity()
     {
-        return number;
+        return quantity;
     }
 
     @Override
     public double getPrice()
     {
-        return this.price * this.number;
+        return this.price * this.quantity;
     }
 
     public void increment()
     {
-        number++;
+        quantity++;
     }
 
     public void decrement()
     {
-        number--;
+        quantity--;
     }
 }

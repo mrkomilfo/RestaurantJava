@@ -19,6 +19,8 @@ import javafx.scene.control.*;
 
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import sample.DB.Const;
+import sample.DB.DatabaseHandler;
 import sample.Main;
 import sample.Model.*;
 import sample.Model.Menu;
@@ -148,7 +150,6 @@ public class CustomerController {
             billTable.refresh();
             totalLabel.setText(Double.toString(bill.getCost()));
         }
-
     }
 
     @FXML
@@ -185,21 +186,20 @@ public class CustomerController {
     @FXML
     void cancelOrderButtonClick(ActionEvent event) {
         bill.clear();
-        billTable.setItems(FXCollections.observableArrayList(bill.values()));
+        billTable.getItems().clear();
         billTable.refresh();
         totalLabel.setText("0.0");
     }
 
     @FXML
     void confirmOrderButtonClick(ActionEvent event) {
-        Main.addOrder(bill);
+        DatabaseHandler.addOrder(bill);
         bill.clear();
-        billTable.setItems(FXCollections.observableArrayList(bill.values()));
+        billTable.getItems().clear();
         totalLabel.setText("0.0");
     }
 
     private Bill bill;
-    private Menu menu;
     private Dish selectedDish;
 
     @FXML
@@ -231,7 +231,7 @@ public class CustomerController {
         billName.setCellValueFactory(new PropertyValueFactory<>("name"));
         billOutput.setCellValueFactory(new PropertyValueFactory<>("output"));
         billPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        billNumber.setCellValueFactory(new PropertyValueFactory<>("number"));
+        billNumber.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
         bill = new Bill();
 
@@ -286,75 +286,11 @@ public class CustomerController {
             }
         });
 
-        menu = Main.getMenu();
-        for (Dish dish: menu.values())
-        {
-            switch (dish.getType())
-            {
-                case "Холодные закуски":
-                {
-                    saladTable.getItems().add(dish);
-                    break;
-                }
-                case "Первое блюдо":
-                {
-                    firstCourseTable.getItems().add(dish);
-                    break;
-                }
-                case "Гарниры":
-                {
-                    garnishTable.getItems().add(dish);
-                    break;
-                }
-                case "Горячие блюда":
-                {
-                    hotDishTable.getItems().add(dish);
-                    break;
-                }
-                case "Напитки":
-                {
-                    drinkTable.getItems().add(dish);
-                    break;
-                }
-                case "Десерты":
-                {
-                    dessertTable.getItems().add(dish);
-                    break;
-                }
-
-            }
-        }
-    }
-
-    protected void deselect(TableView tv)
-    {
-        if (tv != saladTable)
-        {
-            saladTable.getSelectionModel().clearSelection();
-        }
-        if (tv != firstCourseTable)
-        {
-            firstCourseTable.getSelectionModel().clearSelection();
-        }
-        if (tv != garnishTable)
-        {
-            garnishTable.getSelectionModel().clearSelection();
-        }
-        if (tv != hotDishTable)
-        {
-            hotDishTable.getSelectionModel().clearSelection();
-        }
-        if (tv != drinkTable)
-        {
-            drinkTable.getSelectionModel().clearSelection();
-        }
-        if (tv != dessertTable)
-        {
-            dessertTable.getSelectionModel().clearSelection();
-        }
-        if (tv != billTable)
-        {
-            billTable.getSelectionModel().clearSelection();
-        }
+        saladTable.getItems().addAll(DatabaseHandler.loadDishes(Const.SALAD_TABLE).values());
+        firstCourseTable.getItems().addAll(DatabaseHandler.loadDishes(Const.FIRSTCOURSE_TABLE).values());
+        garnishTable.getItems().addAll(DatabaseHandler.loadDishes(Const.GARNISH_TABLE).values());
+        hotDishTable.getItems().addAll(DatabaseHandler.loadDishes(Const.HOTDISHES_TABLE).values());
+        drinkTable.getItems().addAll(DatabaseHandler.loadDishes(Const.DRINKS_TABLE).values());
+        dessertTable.getItems().addAll(DatabaseHandler.loadDishes(Const.DESSERTS_TABLE).values());
     }
 }

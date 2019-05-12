@@ -21,7 +21,7 @@ public class Menu extends HashMap<String, Dish>
         this.put(dish.getName(), dish);
     }
 
-    static public Menu loadMenu()
+    /*static public Menu loadMenu()
     {
         Menu start_menu = new Menu();
         start_menu.add(new Dish("Холодные закуски", "Салат Цезарь", 2.9, 150));
@@ -37,5 +37,5 @@ public class Menu extends HashMap<String, Dish>
         start_menu.add(new Dish("Десерты", "Тирамису", 3.5, 180));
         start_menu.add(new Dish("Десерты", "Эклер", 2.5, 65));
         return start_menu;
-    }
+    }*/
 }

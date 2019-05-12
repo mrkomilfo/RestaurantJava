@@ -2,7 +2,6 @@ package sample.Control;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -19,6 +18,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import sample.DB.Const;
+import sample.DB.DatabaseHandler;
+import sample.Dialogs;
 import sample.Main;
 import sample.Model.*;
 import sample.Model.Menu;
@@ -224,22 +226,7 @@ public class AdministrationController {
 
     @FXML
     void backButtonClick(ActionEvent event) {
-        Stage oldStage = (Stage)backButton.getScene().getWindow();
-        oldStage.hide();
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/sample/View/authorization.fxml"));
-
-        try {
-            loader.load();
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-
-        Parent root = loader.getRoot();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
+        closeWindow();
     }
 
     @FXML
@@ -265,45 +252,50 @@ public class AdministrationController {
     @FXML
     void deleteDishButtonClicked(ActionEvent event) {
         if (selectedDish != null) {
-            Main.deleteDish(selectedDish.getName());
+            DatabaseHandler.deleteDish(selectedDish.getType(), selectedDish.getName());
             menu.get(selectedDish.getType()).remove(selectedDish.getName());
             menuTable.setItems(FXCollections.observableArrayList(menu.get(menuTypePicker.getValue()).values()));
             selectedDish = null;
             clearMenuFields();
+        }
+        else
+        {
+            Dialogs.showErrorDialog("Ошибка!", "Блюдо не выбрано.");
+            return;
         }
     }
 
     @FXML
     void editDishButtonClicked(ActionEvent event) {
         if (selectedDish == null) {
-            showErrorDialog("Блюдо не выбрано!", "Для начала выберите какое-нибудь блюдо.");
+            Dialogs.showErrorDialog("Ошибка!", "Блюдо не выбрано.");
             return;
         }
         if (dishNameField.getText().length() == 0)
         {
-            showErrorDialog("Неверные данные!", "Блюдо должно иметь название.");
+            Dialogs.showErrorDialog("Неверные данные!", "Блюдо должно иметь название.");
             return;
         }
         if (!dishOutputField.getText().matches("\\d+") )
         {
-            showErrorDialog("Неверные данные!", "Неверно задан выход блюда. Это должно быть целое число.");
+            Dialogs.showErrorDialog("Неверные данные!", "Неверно задан выход блюда. Это должно быть целое число.");
             return;
         }
         if (!dishCostField.getText().matches("\\d+(\\.\\d+)?") )
         {
-            showErrorDialog("Неверные данные!", "Неверно задана стоимость.");
+            Dialogs.showErrorDialog("Неверные данные!", "Неверно задана стоимость.");
             return;
         }
         menu.get(selectedDish.getType()).remove(selectedDish.getName());
-        Main.deleteDish(selectedDish.getName());
-        selectedDish = null;
-        Dish newDish = new Dish(dishTypePicker.getPromptText(), dishNameField.getText(),
+        DatabaseHandler.deleteDish(selectedDish.getType(), selectedDish.getName());
+        Dish newDish = new Dish(dishTypePicker.getValue(), dishNameField.getText(),
                 Double.parseDouble(dishCostField.getText()), Integer.parseInt(dishOutputField.getText()));
         menu.get(newDish.getType()).add(newDish);
-        Main.addDish(newDish);
+        DatabaseHandler.addDish(newDish);
         menuTable.setItems(FXCollections.observableArrayList(menu.get(selectedDish.getType()).values()));
         clearMenuFields();
         menuTable.getSelectionModel().clearSelection();
+        selectedDish = null;
     }
 
     @FXML
@@ -328,12 +320,22 @@ public class AdministrationController {
 
     @FXML
     void deleteEmployeeButtonClicked(ActionEvent event) {
+        if (selectedEmployee.login.equals(account.login))
+        {
+            Dialogs.showErrorDialog("Ошибка!", "Невозможно удалить собственный аккаунт.");
+            return;
+        }
         if (selectedEmployee != null) {
-            Main.dismissEmployee(selectedEmployee.login);
+            DatabaseHandler.deleteEmployee(selectedEmployee.login);
             staff.dismiss(selectedEmployee.login);
             staffTable.setItems(FXCollections.observableArrayList(staff.values()));
             selectedEmployee = null;
             clearEmployeesFields();
+        }
+        else
+        {
+            Dialogs.showErrorDialog("Ошибка!", "Сотрудник не выбран!");
+            return;
         }
     }
 
@@ -341,43 +343,51 @@ public class AdministrationController {
     void editEmployeeButtonClicked(ActionEvent event) {
         if (selectedEmployee == null)
         {
-            showErrorDialog("Сотрудник не выбран!", "Выберите сотрудника.");
+            Dialogs.showErrorDialog("Сотрудник не выбран!", "Выберите сотрудника.");
             return;
         }
         if (surnameField.getText().length() == 0 || nameField.getText().length() == 0 || patronomycField.getText().length() == 0 ||
                 birthdayPicker.getEditor().getText().length() == 0 || positionField.getText().length() == 0 || loginField.getText().length() == 0)
         {
-            showErrorDialog("Неверные данные!", "Все поля должны быть заполнены.");
+            Dialogs.showErrorDialog("Неверные данные!", "Все поля должны быть заполнены.");
             return;
         }
         if (!salaryField.getText().matches("\\d+(\\.\\d+)?") )
         {
-            showErrorDialog("Неверные данные!", "Оклад задан неверно.");
+            Dialogs.showErrorDialog("Неверные данные!", "Оклад задан неверно.");
             return;
         }
         if (passwordField.getText().length() < 4)
         {
-            showErrorDialog("Неверные данные!", "Пароль должен состоять как минимум из 4 символов.");
+            Dialogs.showErrorDialog("Неверные данные!", "Пароль должен состоять как минимум из 4 символов.");
             return;
         }
-        Main.dismissEmployee(selectedEmployee.login);
+        DatabaseHandler.deleteEmployee(selectedEmployee.login);
         staff.dismiss(selectedEmployee.login);
-        selectedEmployee = null;
+
         Employee newEmployee = new Employee(surnameField.getText(), nameField.getText(), patronomycField.getText(),
                 birthdayPicker.getValue(), positionField.getText(), Double.parseDouble(salaryField.getText()),
                 loginField.getText(), passwordField.getText(), menuAccess.isSelected(), menuReadonly.isSelected(),
                 employeesAccess.isSelected(), employeesReadonly.isSelected(), ordersAccess.isSelected(), ordersReadonly.isSelected());
-        Main.addEmployee(newEmployee);
-        staff.recruit(newEmployee);
+        DatabaseHandler.addEmployee(newEmployee);
+        staff.add(newEmployee);
         clearEmployeesFields();
         staffTable.getSelectionModel().clearSelection();
+        if (selectedEmployee.login.equals(account.login))
+        {
+            closeWindow();
+        }
+        else
+        {
+            selectedEmployee = null;
+        }
     }
 
     @FXML
     void closeOrderButtonClicked(ActionEvent event) {
         if (selectedOrder != null) {
-            Main.closeOrder(selectedOrder.getNumber());
-            orders = Main.getOrders();
+            DatabaseHandler.closeOrder(selectedOrder.getNumber());
+            orders = DatabaseHandler.loadOrders();
             allOrdersTable.setItems(FXCollections.observableArrayList(orders.values()));
             orderTable.getItems().clear();
             selectedOrder = null;
@@ -387,27 +397,13 @@ public class AdministrationController {
     private Map<String, Menu> loadMenu()
     {
         Map<String, Menu> menu = new HashMap<>();
-        menu.put("Холодные закуски", new Menu());
-        menu.put("Первое блюдо", new Menu());
-        menu.put("Гарниры", new Menu());
-        menu.put("Горячие блюда", new Menu());
-        menu.put("Напитки", new Menu());
-        menu.put("Десерты", new Menu());
-        Menu startMenu = Main.getMenu();
-        for (Dish dish : startMenu.values())
-        {
-            menu.get(dish.getType()).add(dish);
-        }
+        menu.put("Холодные закуски", DatabaseHandler.loadDishes(Const.SALAD_TABLE));
+        menu.put("Первое блюдо", DatabaseHandler.loadDishes(Const.FIRSTCOURSE_TABLE));
+        menu.put("Гарниры", DatabaseHandler.loadDishes(Const.GARNISH_TABLE));
+        menu.put("Горячие блюда", DatabaseHandler.loadDishes(Const.HOTDISHES_TABLE));
+        menu.put("Напитки", DatabaseHandler.loadDishes(Const.DRINKS_TABLE));
+        menu.put("Десерты", DatabaseHandler.loadDishes(Const.DESSERTS_TABLE));
         return menu;
-    }
-
-    static void showErrorDialog(String title, String text)
-    {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setContentText(text);
-        alert.setHeaderText("");
-        alert.showAndWait();
     }
 
     void clearEmployeesFields()
@@ -430,10 +426,30 @@ public class AdministrationController {
 
     void clearMenuFields()
     {
-        dishTypePicker.setPromptText(null);
+        dishTypePicker.getSelectionModel().select(null);
         dishNameField.clear();
         dishOutputField.clear();
         dishCostField.clear();
+    }
+
+    void closeWindow()
+    {
+        Stage oldStage = (Stage)backButton.getScene().getWindow();
+        oldStage.hide();
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/sample/View/authorization.fxml"));
+
+        try {
+            loader.load();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     private Dish selectedDish;
@@ -447,7 +463,6 @@ public class AdministrationController {
     @FXML
     void initialize(){
         account = Main.getAccount();
-
         mainTab.isSelected();
         surnameLabel.setText(account.surname);
         nameLabel.setText(account.name);
@@ -502,7 +517,7 @@ public class AdministrationController {
             @Override
             public void changed(ObservableValue<? extends Dish> observable, Dish oldValue, Dish newValue) {
                 if (newValue != null) {
-                    dishTypePicker.setPromptText(newValue.getType());
+                    dishTypePicker.getSelectionModel().select(newValue.getType());
                     dishNameField.setText(newValue.getName());
                     dishOutputField.setText(Integer.toString(newValue.getOutput()));
                     dishCostField.setText(Double.toString(newValue.getPrice()));
@@ -514,7 +529,7 @@ public class AdministrationController {
         employeeSNPColumn.setCellValueFactory(new PropertyValueFactory<>("SNP"));
         employeePositionColumn.setCellValueFactory(new PropertyValueFactory<>("position"));
 
-        staff = Main.getStaff();
+        staff = DatabaseHandler.loadStaff();
         staffTable.setItems(FXCollections.observableArrayList(staff.values()));
 
         loginField.setDisable(true);
@@ -559,7 +574,6 @@ public class AdministrationController {
                 {
                     menuAccess.setSelected(true);
                 }
-
             }
         });
         employeesAccess.selectedProperty().addListener(new ChangeListener<Boolean>() {
@@ -569,7 +583,6 @@ public class AdministrationController {
                 {
                     employeesReadonly.setSelected(false);
                 }
-
             }
         });
         employeesReadonly.selectedProperty().addListener(new ChangeListener<Boolean>() {
@@ -579,7 +592,6 @@ public class AdministrationController {
                 {
                     employeesAccess.setSelected(true);
                 }
-
             }
         });
         ordersAccess.selectedProperty().addListener(new ChangeListener<Boolean>() {
@@ -589,7 +601,6 @@ public class AdministrationController {
                 {
                     ordersReadonly.setSelected(false);
                 }
-
             }
         });
         ordersReadonly.selectedProperty().addListener(new ChangeListener<Boolean>() {
@@ -599,26 +610,27 @@ public class AdministrationController {
                 {
                     ordersAccess.setSelected(true);
                 }
-
             }
         });
 
         orderNumberColumn.setCellValueFactory(new PropertyValueFactory<>("number"));
         orderTimeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
 
-        orders = Main.getOrders();
+        orders = DatabaseHandler.loadOrders();
         allOrdersTable.setItems(FXCollections.observableArrayList(orders.values()));
 
         sectionNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         sectionOutputColumn.setCellValueFactory(new PropertyValueFactory<>("output"));
-        sectionNumberColumn.setCellValueFactory(new PropertyValueFactory<>("number"));
+        sectionNumberColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         sectionCostColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 
         allOrdersTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Order>() {
             @Override
             public void changed(ObservableValue<? extends Order> observable, Order oldValue, Order newValue) {
-                orderTable.setItems(FXCollections.observableArrayList(newValue.values()));
-                selectedOrder = newValue;
+                if (newValue != null) {
+                    orderTable.setItems(FXCollections.observableArrayList(newValue.values()));
+                    selectedOrder = newValue;
+                }
             }
         });
 

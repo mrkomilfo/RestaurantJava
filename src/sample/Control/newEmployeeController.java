@@ -14,6 +14,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import sample.DB.DatabaseHandler;
+import sample.Dialogs;
 import sample.Main;
 import sample.Model.Dish;
 import sample.Model.Employee;
@@ -84,34 +86,24 @@ public class newEmployeeController {
         if (surnameField.getText().length() == 0 || nameField.getText().length() == 0 || patronomycField.getText().length() == 0 ||
             birthdayPicker.getEditor().getText().length() == 0 || positionField.getText().length() == 0 || loginField.getText().length() == 0)
         {
-            showErrorDialog("Неверные данные!", "Все поля должны быть заполнены.");
+            Dialogs.showErrorDialog("Неверные данные!", "Все поля должны быть заполнены.");
             return;
         }
         if (!salaryField.getText().matches("\\d+(\\.\\d+)?") )
         {
-            showErrorDialog("Неверные данные!", "Оклад задан неверно.");
+            Dialogs.showErrorDialog("Неверные данные!", "Оклад задан неверно.");
             return;
         }
         if (passwordField.getText().length() < 4)
         {
-            showErrorDialog("Неверные данные!", "Пароль должен состоять как минимум из 4 символов.");
+            Dialogs.showErrorDialog("Неверные данные!", "Пароль должен состоять как минимум из 4 символов.");
             return;
         }
-        Employee newEmployee = new Employee(surnameField.getText(), nameField.getText(), patronomycField.getText(),
+        DatabaseHandler.addEmployee(surnameField.getText(), nameField.getText(), patronomycField.getText(),
                 birthdayPicker.getValue(), positionField.getText(), Double.parseDouble(salaryField.getText()),
                 loginField.getText(), passwordField.getText(), menuAccess.isSelected(), menuReadonly.isSelected(),
                 employeesAccess.isSelected(), employeesReadonly.isSelected(), ordersAccess.isSelected(), ordersReadonly.isSelected());
-        Main.addEmployee(newEmployee);
         closeWindow();
-    }
-
-    static void showErrorDialog(String title, String text)
-    {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setContentText(text);
-        alert.setHeaderText("");
-        alert.showAndWait();
     }
 
     @FXML

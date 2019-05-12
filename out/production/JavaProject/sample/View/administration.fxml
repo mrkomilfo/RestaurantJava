@@ -21,7 +21,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Control.AdministrationController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Control.AdministrationController">
    <children>
       <TabPane layoutY="64.0" prefHeight="436.0" prefWidth="750.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -31,10 +31,10 @@
                      <children>
                         <VBox prefHeight="400.0" prefWidth="750.0">
                            <children>
-                              <GridPane prefHeight="332.0" prefWidth="254.0">
+                              <GridPane prefHeight="334.0" prefWidth="402.0">
                                 <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.39996337890625" minWidth="10.0" prefWidth="126.5999755859375" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="277.79998779296875" minWidth="10.0" prefWidth="275.4000244140625" />
                                 </columnConstraints>
                                 <rowConstraints>
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -47,7 +47,7 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <VBox.margin>
-                                    <Insets left="248.0" right="248.0" top="8.0" />
+                                    <Insets left="248.0" right="100.0" top="8.0" />
                                  </VBox.margin>
                                  <children>
                                     <Label text="Фамилия:">
@@ -188,15 +188,15 @@
                                           <Insets left="16.0" right="16.0" top="8.0" />
                                        </VBox.margin>
                                        <children>
-                                          <Label text="Название" GridPane.rowIndex="1" />
+                                          <Label text="Название" />
                                           <Label text="Выход" GridPane.rowIndex="2" />
                                           <Label text="Цена" GridPane.rowIndex="3" />
-                                          <TextField GridPane.columnIndex="1" />
+                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                           <TextField fx:id="dishOutputField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                           <TextField fx:id="dishCostField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                          <ComboBox fx:id="dishTypePicker" prefHeight="31.0" prefWidth="231.0" GridPane.columnIndex="1" />
-                                          <TextField fx:id="dishNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                          <Label text="Тип блюда" />
+                                          <ComboBox fx:id="dishTypePicker" prefHeight="31.0" prefWidth="231.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <TextField fx:id="dishNameField" GridPane.columnIndex="1" />
+                                          <Label text="Тип блюда" GridPane.rowIndex="1" />
                                        </children>
                                     </GridPane>
                                  </children>
@@ -318,8 +318,8 @@
                            <children>
                               <TableView fx:id="allOrdersTable" prefHeight="397.0" prefWidth="300.0">
                                 <columns>
-                                  <TableColumn fx:id="orderNumberColumn" prefWidth="166.0" text="Номер" />
-                                  <TableColumn fx:id="orderTimeColumn" minWidth="0.0" prefWidth="131.0" text="Время" />
+                                  <TableColumn fx:id="orderNumberColumn" prefWidth="137.0" text="Номер" />
+                                  <TableColumn fx:id="orderTimeColumn" minWidth="0.0" prefWidth="160.0" text="Время" />
                                 </columns>
                               </TableView>
                               <VBox prefHeight="397.0" prefWidth="455.0">

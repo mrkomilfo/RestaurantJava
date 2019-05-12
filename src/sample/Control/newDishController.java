@@ -15,8 +15,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import sample.Dialogs;
 import sample.Main;
 import sample.Model.Dish;
+import sample.DB.DatabaseHandler;
 
 public class newDishController {
 
@@ -51,28 +53,28 @@ public class newDishController {
 
     @FXML
     void saveButtonClick(ActionEvent event) {
-        if (typePicker.getEditor().getText().length() == 0)
+        if (typePicker.getValue().length() == 0)
         {
-            showErrorDialog("Неверные данные!", "Выберите тип блюда.");
+            Dialogs.showErrorDialog("Неверные данные!", "Выберите тип блюда.");
             return;
         }
         if (nameField.getText().length() == 0)
         {
-            showErrorDialog("Неверные данные!", "Блюдо должно иметь название.");
+            Dialogs.showErrorDialog("Неверные данные!", "Блюдо должно иметь название.");
             return;
         }
         if (!outputField.getText().matches("\\d+") )
         {
-            showErrorDialog("Неверные данные!", "Неверно задан выход блюда. Это должно быть целое число.");
+            Dialogs.showErrorDialog("Неверные данные!", "Неверно задан выход блюда. Это должно быть целое число.");
             return;
         }
         if (!costField.getText().matches("\\d+(\\.\\d+)?") )
         {
-            showErrorDialog("Неверные данные!", "Неверно задана стоимость.");
+            Dialogs.showErrorDialog("Неверные данные!", "Неверно задана стоимость.");
             return;
         }
-        Dish newDish = new Dish(typePicker.getPromptText(), nameField.getText(), Double.parseDouble(costField.getText()), Integer.parseInt(outputField.getText()));
-        Main.addDish(newDish);
+        DatabaseHandler.addDish(typePicker.getValue(), nameField.getText(),
+                Double.parseDouble(costField.getText()), Integer.parseInt(outputField.getText()));
 
         closeWindow();
     }
@@ -95,15 +97,6 @@ public class newDishController {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
-    }
-
-    static void showErrorDialog(String title, String text)
-    {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setContentText(text);
-        alert.setHeaderText("");
-        alert.showAndWait();
     }
 
     @FXML

@@ -42,7 +42,7 @@ public class MenuController {
         Parent root = loader.getRoot();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-         stage.show();
+        stage.show();
     }
 
     @FXML

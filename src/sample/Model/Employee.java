@@ -43,10 +43,20 @@ public class Employee {
         this.SNP = surname + " " + name + " " + patronymic;
     }
 
+    public Employee() {
+
+    }
+
     public String getPosition() {
         return position;
     }
+
     public String getSNP(){
         return SNP;
+    }
+
+    public void setSNP(String snp)
+    {
+        this.SNP = snp;
     }
 }

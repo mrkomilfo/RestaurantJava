@@ -318,8 +318,8 @@
                            <children>
                               <TableView fx:id="allOrdersTable" prefHeight="397.0" prefWidth="300.0">
                                 <columns>
-                                  <TableColumn fx:id="orderNumberColumn" prefWidth="166.0" text="Номер" />
-                                  <TableColumn fx:id="orderTimeColumn" minWidth="0.0" prefWidth="131.0" text="Время" />
+                                  <TableColumn fx:id="orderNumberColumn" prefWidth="137.0" text="Номер" />
+                                  <TableColumn fx:id="orderTimeColumn" minWidth="0.0" prefWidth="160.0" text="Время" />
                                 </columns>
                               </TableView>
                               <VBox prefHeight="397.0" prefWidth="455.0">

@@ -13,6 +13,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
+import sample.DB.DatabaseHandler;
+import sample.Dialogs;
 import sample.Main;
 import sample.Model.Employee;
 
@@ -48,25 +50,25 @@ public class changePasswordController {
     void saveButtonClick(ActionEvent event) {
         if (!oldPasswordField.getText().equals(account.password))
         {
-            showErrorDialog("Ошибка!", "Старый пароль введён неверно.");
+            Dialogs.showErrorDialog("Ошибка!", "Старый пароль введён неверно.");
             return;
         }
         if (!newPasswordField.getText().equals(newPasswordConfirmationField.getText()))
         {
-            showErrorDialog("Ошибка!", "Пароль не подтверждён.");
+            Dialogs.showErrorDialog("Ошибка!", "Пароль не подтверждён.");
             return;
         }
         if (newPasswordField.getText().equals(oldPasswordField.getText()))
         {
-            showErrorDialog("Ошибка!", "Старый и новый пароли должны различаться.");
+            Dialogs.showErrorDialog("Ошибка!", "Старый и новый пароли должны различаться.");
             return;
         }
         if (newPasswordField.getText().length() < 4)
         {
-            showErrorDialog("Ошибка!", "Пароль должен состоять как минимум из 4 символов.");
+            Dialogs.showErrorDialog("Ошибка!", "Пароль должен состоять как минимум из 4 символов.");
             return;
         }
-        Main.changePassword(account.login, newPasswordField.getText());
+        DatabaseHandler.changePassword(account.login, newPasswordField.getText());
         closeWindow("authorization");
     }
 
@@ -95,14 +97,5 @@ public class changePasswordController {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
-    }
-
-    static void showErrorDialog(String title, String text)
-    {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setContentText(text);
-        alert.setHeaderText("");
-        alert.showAndWait();
     }
 }
