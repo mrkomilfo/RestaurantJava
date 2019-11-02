@@ -4,81 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/JavaProject.iml" line="11" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Control/AdministrationController$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Control/AdministrationController$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Control/AdministrationController$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Control/AdministrationController$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Control/AdministrationController$5.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Control/AdministrationController$6.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Control/AdministrationController$7.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Control/AdministrationController$8.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Control/AdministrationController$9.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Control/AdministrationController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Control/AuthorizationController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Control/CustomerController$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Control/CustomerController$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Control/CustomerController$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Control/CustomerController$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Control/CustomerController$5.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Control/CustomerController$6.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Control/CustomerController$7.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Control/CustomerController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Control/MenuController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Control/changePasswordController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Control/newDishController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Control/newEmployeeController$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Control/newEmployeeController$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Control/newEmployeeController$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Control/newEmployeeController$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Control/newEmployeeController$5.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Control/newEmployeeController$6.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Control/newEmployeeController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/DB/Configs.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaProject/sample/DB/Configs.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/DB/DatabaseHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaProject/sample/DB/DatabaseHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaProject/sample/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Model/Bill.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Model/Dish.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Model/Employee.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Model/Menu.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Model/Order.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Model/Section.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/Model/Staff.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/View/administration.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/View/authorization.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/View/changePassword.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/View/customer.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/View/menu.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/View/newDish.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/sample/View/newEmployee.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Control/AdministrationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controllers/AdministrationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Control/AuthorizationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controllers/AuthorizationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Control/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controllers/CustomerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Control/MenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controllers/MenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Control/changePasswordController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controllers/ChangePasswordController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Control/newDishController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controllers/NewDishController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Control/newEmployeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controllers/NewEmployeeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/DB/Configs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/DB/Configs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/DB/DatabaseHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/DB/DatabaseHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Model/Bill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Models/Bill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Model/Dish.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Models/Dish.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Model/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Models/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Model/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Models/Menu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Model/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Models/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Model/Section.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Models/Section.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Model/Staff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Models/Staff.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/View/administration.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Views/administration.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/View/authorization.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Views/authorization.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/View/changePassword.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Views/changePassword.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/View/customer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Views/customer.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/View/menu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Views/menu.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/View/newDish.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Views/newDish.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/View/newEmployee.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Views/newEmployee.fxml" afterDir="false" />
-    </list>
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="" />
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -162,16 +88,6 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sample/Views/newEmployee.fxml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="13" selection-end-line="118" />
-            </state>
-          </provider>
-          <provider editor-type-id="JavaFX-Scene-Builder" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/JavaProject.iml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="187">
@@ -180,13 +96,18 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/DB/Configs.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="170">
               <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../JavaProjects/JavaProjects.iml">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -363,9 +284,9 @@
     </treeState>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="243" />
-    <option name="y" value="-18" />
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="x" value="32" />
+    <option name="y" value="232" />
     <option name="width" value="980" />
     <option name="height" value="1045" />
   </component>
@@ -575,10 +496,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="-7" y="251" width="784" height="836" extended-state="1" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.19731544" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.40607736" />
       <window_info id="Structure" order="1" weight="0.16487935" />
       <window_info id="Favorites" order="2" weight="0.3295302" />
       <window_info id="Designer" order="3" />
@@ -672,17 +593,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/javafx-src.zip!/javafx/beans/property/ObjectPropertyBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="147" selection-start-line="147" selection-end-line="147" />
-          <folding>
-            <element signature="e#2623#2624#0" expanded="true" />
-            <element signature="e#2685#2686#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/javafx-src.zip!/javafx/scene/control/SelectionModel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1258">
@@ -1051,6 +961,9 @@
           <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../JavaProjects/JavaProjects.iml">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
   <component name="masterDetails">
