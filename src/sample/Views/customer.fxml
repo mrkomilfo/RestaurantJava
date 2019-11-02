@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.CustomerController">
+   <children>
+      <HBox prefHeight="64.0" prefWidth="800.0" style="-fx-background-color: #321;">
+         <children>
+            <BorderPane prefHeight="58.0" prefWidth="120.0">
+               <center>
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonClick" prefHeight="32.0" prefWidth="78.0" style="-fx-background-color: #DEB887;" text="Назад" textAlignment="CENTER" textFill="#332211" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="Lobster" size="18.0" />
+                     </font>
+                  </Button>
+               </center>
+            </BorderPane>
+            <BorderPane prefHeight="58.0" prefWidth="723.0">
+               <center>
+                  <Label text="Ресторан &quot;Komilfo&quot;" textFill="CORNSILK" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="Lobster" size="32.0" />
+                     </font>
+                  </Label>
+               </center>
+            </BorderPane>
+         </children>
+      </HBox>
+      <HBox prefHeight="548.0" prefWidth="610.0">
+         <children>
+            <VBox prefHeight="538.0" prefWidth="396.0">
+               <children>
+                  <ButtonBar prefHeight="31.0" prefWidth="396.0">
+                     <buttons>
+                        <Button fx:id="addDishButton" minWidth="50.0" mnemonicParsing="false" onAction="#addDishButtonClick" prefHeight="26.0" text="+" />
+                        <Button fx:id="removeDishButton" minWidth="30.0" mnemonicParsing="false" onAction="#removeDishButtonClick" prefHeight="26.0" text="-" />
+                     </buttons>
+                  </ButtonBar>
+                  <Accordion fx:id="CustomerAccordion" prefHeight="505.0" prefWidth="396.0">
+                     <panes>
+                        <TitledPane animated="false" prefHeight="370.0" prefWidth="296.0" text="Холодные закуски">
+                           <content>
+                              <TableView fx:id="saladTable" prefHeight="200.0" prefWidth="200.0">
+                                 <columns>
+                                    <TableColumn fx:id="saladName" prefWidth="236.0" text="Наименование" />
+                                    <TableColumn fx:id="saladOutput" minWidth="0.0" prefWidth="81.0" text="Выход (г.)" />
+                                    <TableColumn fx:id="saladPrice" minWidth="6.39996337890625" prefWidth="77.0" text="Цена" />
+                                 </columns>
+                              </TableView>
+                           </content>
+                        </TitledPane>
+                        <TitledPane animated="false" prefHeight="370.0" prefWidth="296.0" text="Первые блюда">
+                           <content>
+                              <TableView fx:id="firstCourseTable" prefHeight="200.0" prefWidth="200.0">
+                                 <columns>
+                                    <TableColumn fx:id="firstCourseName" prefWidth="221.0" text="Наименование" />
+                                    <TableColumn fx:id="firstCourseOutput" minWidth="0.0" prefWidth="96.0" text="Выход (мл.)" />
+                                    <TableColumn fx:id="firstCoursePrice" minWidth="6.39996337890625" prefWidth="77.0" text="Цена" />
+                                 </columns>
+                              </TableView>
+                           </content>
+                        </TitledPane>
+                        <TitledPane animated="false" prefHeight="370.0" prefWidth="296.0" text="Гарниры">
+                           <content>
+                              <TableView fx:id="garnishTable" prefHeight="200.0" prefWidth="200.0">
+                                 <columns>
+                                    <TableColumn fx:id="garnishName" prefWidth="236.0" text="Наименование" />
+                                    <TableColumn fx:id="garnishOutput" minWidth="0.0" prefWidth="81.0" text="Выход (г.)" />
+                                    <TableColumn fx:id="garnishPrice" minWidth="6.39996337890625" prefWidth="77.0" text="Цена" />
+                                 </columns>
+                              </TableView>
+                           </content>
+                        </TitledPane>
+                        <TitledPane animated="false" prefHeight="370.0" prefWidth="296.0" text="Горячие блюда">
+                           <content>
+                              <TableView fx:id="hotDishTable" prefHeight="200.0" prefWidth="200.0">
+                                 <columns>
+                                    <TableColumn fx:id="hotDishName" prefWidth="235.0" text="Наименование" />
+                                    <TableColumn fx:id="hotDishOutput" minWidth="0.0" prefWidth="82.0" text="Выход (г.)" />
+                                    <TableColumn fx:id="hotDishPrice" minWidth="6.39996337890625" prefWidth="77.0" text="Цена" />
+                                 </columns>
+                              </TableView>
+                           </content>
+                        </TitledPane>
+                        <TitledPane animated="false" prefHeight="370.0" prefWidth="296.0" text="Напитки">
+                           <content>
+                              <TableView fx:id="drinkTable" prefHeight="200.0" prefWidth="200.0">
+                                 <columns>
+                                    <TableColumn fx:id="drinkName" prefWidth="220.0" text="Наименование" />
+                                    <TableColumn fx:id="drinkOutput" minWidth="0.0" prefWidth="97.0" text="Выход (мл.)" />
+                                    <TableColumn fx:id="drinkPrice" minWidth="6.39996337890625" prefWidth="77.0" text="Цена" />
+                                 </columns>
+                              </TableView>
+                           </content>
+                        </TitledPane>
+                        <TitledPane animated="false" prefHeight="370.0" prefWidth="296.0" text="Десерты">
+                           <content>
+                              <TableView fx:id="dessertTable" prefHeight="200.0" prefWidth="200.0">
+                                 <columns>
+                                    <TableColumn fx:id="dessertName" prefWidth="235.0" text="Наименование" />
+                                    <TableColumn fx:id="dessertOutput" minWidth="0.0" prefWidth="82.0" text="Выход (г.)" />
+                                    <TableColumn fx:id="dessertPrice" minWidth="6.39996337890625" prefWidth="77.0" text="Цена" />
+                                 </columns>
+                              </TableView>
+                           </content>
+                        </TitledPane>
+                     </panes>
+                  </Accordion>
+               </children>
+            </VBox>
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <VBox prefHeight="537.0" prefWidth="396.0">
+               <children>
+                  <BorderPane prefHeight="55.0" prefWidth="396.0">
+                     <center>
+                        <Label prefHeight="50.0" prefWidth="150.0" text="Ваш заказ" textAlignment="CENTER" textFill="#332211" BorderPane.alignment="CENTER">
+                           <font>
+                              <Font name="Lobster" size="32.0" />
+                           </font>
+                        </Label>
+                     </center>
+                  </BorderPane>
+                  <TableView fx:id="billTable" prefHeight="401.0" prefWidth="436.0">
+                     <columns>
+                        <TableColumn fx:id="billName" prefWidth="159.0" text="Наименование" />
+                        <TableColumn fx:id="billOutput" minWidth="0.0" prefWidth="73.0" text="Выход" />
+                        <TableColumn fx:id="billNumber" minWidth="6.39996337890625" prefWidth="94.0" text="Количество" />
+                        <TableColumn fx:id="billPrice" maxWidth="132.0" minWidth="-1.0" prefWidth="67.99996948242188" text="Цена" />
+                     </columns>
+                  </TableView>
+                  <HBox prefHeight="51.0" prefWidth="396.0">
+                     <children>
+                        <BorderPane prefHeight="48.0" prefWidth="419.0">
+                           <left>
+                              <Label prefHeight="35.0" prefWidth="154.0" text="   Итого:" BorderPane.alignment="CENTER">
+                                 <font>
+                                    <Font name="Lobster" size="28.0" />
+                                 </font>
+                              </Label>
+                           </left>
+                           <center>
+                              <Label fx:id="totalLabel" prefHeight="35.0" prefWidth="106.0" text="0.0" BorderPane.alignment="CENTER">
+                                 <font>
+                                    <Font name="Lobster" size="28.0" />
+                                 </font>
+                              </Label>
+                           </center>
+                           <right>
+                              <Label text="BYN     " textAlignment="RIGHT" BorderPane.alignment="CENTER">
+                                 <font>
+                                    <Font name="Lobster" size="28.0" />
+                                 </font>
+                              </Label>
+                           </right>
+                        </BorderPane>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="49.0" prefWidth="396.0">
+                     <children>
+                        <Button fx:id="cancelOrderButton" mnemonicParsing="false" onAction="#cancelOrderButtonClick" prefHeight="43.0" prefWidth="221.0" text="Отменить заказ" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="confirmOrderButton" mnemonicParsing="false" onAction="#confirmOrderButtonClick" prefHeight="43.0" prefWidth="208.0" text="Подтвердить заказ" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</VBox>

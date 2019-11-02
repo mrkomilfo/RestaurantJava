@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sample.Model.*;
+import sample.Models.*;
 
 public class Main extends Application {
 
@@ -13,15 +13,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
-
-        Parent root = FXMLLoader.load(getClass().getResource("View/menu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Views/menu.fxml"));
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 
-    public static boolean setAccount(Employee user)
-    {
+    public static boolean setAccount(Employee user) {
         account = user;
         if (user == null)
             return false;

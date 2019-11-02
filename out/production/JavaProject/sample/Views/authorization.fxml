@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFEFD5;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.AuthorizationController">
+   <children>
+      <AnchorPane prefHeight="64.0" prefWidth="600.0" style="-fx-background-color: #321;">
+         <children>
+            <Label layoutX="165.0" layoutY="12.0" text="Ресторан &quot;Komilfo&quot;" textFill="CORNSILK">
+               <font>
+                  <Font name="Lobster" size="32.0" />
+               </font>
+            </Label>
+            <Button fx:id="backButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#backButtonClick" prefHeight="32.0" prefWidth="78.0" style="-fx-background-color: #DEB887;" text="Назад" textAlignment="CENTER" textFill="#332211">
+               <font>
+                  <Font name="Lobster" size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <Label layoutX="206.0" layoutY="104.0" text="Авторизация" textFill="#332211">
+         <font>
+            <Font name="Lobster" size="32.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="passwordField" layoutX="207.0" layoutY="220.0" promptText="Пароль" />
+      <TextField fx:id="loginField" layoutX="207.0" layoutY="175.0" promptText="Логин" />
+      <Button fx:id="enterButton" layoutX="225.0" layoutY="289.0" mnemonicParsing="false" onAction="#enterButtonClick" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #DEB887;" text="Войти" textAlignment="CENTER" textFill="#332211">
+         <font>
+            <Font name="Lobster" size="30.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

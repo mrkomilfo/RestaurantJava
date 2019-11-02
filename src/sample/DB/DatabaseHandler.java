@@ -1,27 +1,27 @@
 package sample.DB;
 
-import sample.Model.*;
+import sample.Models.*;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DatabaseHandler extends Configs{
+public class DatabaseHandler{
     static Connection dbConnection;
+
 
     public static Connection getDbConnection()
             throws ClassNotFoundException, SQLException{
-        String connectionPath = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName +
+        String connectionPath = "jdbc:mysql://" + Configs.dbHost + ":" + Configs.dbPort + "/" + Configs.dbName +
                 "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
         Class.forName("com.mysql.cj.jdbc.Driver");
 
-        dbConnection = DriverManager.getConnection(connectionPath, dbUser, dbPass);
+        dbConnection = DriverManager.getConnection(connectionPath, Configs.dbUser, Configs.dbPass);
 
         return dbConnection;
     }
@@ -34,27 +34,6 @@ public class DatabaseHandler extends Configs{
         if (rus.equals("Напитки")) return Const.DRINKS_TABLE;
         if (rus.equals("Десерты")) return Const.DESSERTS_TABLE;
         return null;
-    }
-
-    public static void addDish (String type, String name, double price, int output) {
-        String request = "INSERT INTO " + translate(type) + "(" + Const.DISH_TYPE + "," + Const.DISH_NAME + "," +
-                Const.DISH_PRICE + "," + Const.DISH_OUTPUT + ")" + "VALUES(?,?,?,?)";
-
-        PreparedStatement prSt = null;
-        try {
-            prSt = getDbConnection().prepareStatement(request);
-
-            prSt.setString(1, type);
-            prSt.setString(2, name);
-            prSt.setDouble(3, price);
-            prSt.setInt(4, output);
-
-            prSt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
     public static void addDish (Dish dish) {
@@ -133,21 +112,21 @@ public class DatabaseHandler extends Configs{
 
             while (resultSet.next())
             {
-                user.name = resultSet.getString(Const.EMPLOYEE_NAME);
-                user.surname = resultSet.getString(Const.EMPLOYEE_SURNAME);
-                user.patronymic = resultSet.getString(Const.EMPLOYEE_PATRONYMIC);
-                user.birthDate = Instant.ofEpochMilli(resultSet.getDate(Const.EMPLOYEE_BIRTHDAY).
-                        getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
-                user.position = resultSet.getString(Const.EMPLOYEE_POSITION);
-                user.salary = resultSet.getDouble(Const.EMPLOYEE_SALARY);
-                user.login = resultSet.getString(Const.EMPLOYEE_LOGIN);
-                user.password = resultSet.getString(Const.EMPLOYEE_PASSWORD);
-                user.menuRoot = resultSet.getBoolean(Const.EMPLOYEE_MENUACCESS);
-                user.menuRootReadOnly = resultSet.getBoolean(Const.EMPLOYEE_MENUREADONLY);
-                user.employeesRoot = resultSet.getBoolean(Const.EMPLOYEE_STAFFACCESS);
-                user.employeesRootReadOnly = resultSet.getBoolean(Const.EMPLOYEE_STAFFREADONLY);
-                user.ordersRoot = resultSet.getBoolean(Const.EMPLOYEE_ORDERSACCESS);
-                user.ordersRootReadOnly = resultSet.getBoolean(Const.EMPLOYEE_ORDERSREADONLY);
+                user.setName(resultSet.getString(Const.EMPLOYEE_NAME));
+                user.setSurname(resultSet.getString(Const.EMPLOYEE_SURNAME));
+                user.setPatronymic(resultSet.getString(Const.EMPLOYEE_PATRONYMIC));
+                user.setBirthDate(Instant.ofEpochMilli(resultSet.getDate(Const.EMPLOYEE_BIRTHDAY).
+                        getTime()).atZone(ZoneId.systemDefault()).toLocalDate());
+                user.setPosition(resultSet.getString(Const.EMPLOYEE_POSITION));
+                user.setSalary(resultSet.getDouble(Const.EMPLOYEE_SALARY));
+                user.setLogin(resultSet.getString(Const.EMPLOYEE_LOGIN));
+                user.setPassword(resultSet.getString(Const.EMPLOYEE_PASSWORD));
+                user.setMenuRoot(resultSet.getBoolean(Const.EMPLOYEE_MENUACCESS));
+                user.setMenuRootReadOnly(resultSet.getBoolean(Const.EMPLOYEE_MENUREADONLY));
+                user.setEmployeesRoot(resultSet.getBoolean(Const.EMPLOYEE_STAFFACCESS));
+                user.setEmployeesRootReadOnly(resultSet.getBoolean(Const.EMPLOYEE_STAFFREADONLY));
+                user.setOrdersRoot(resultSet.getBoolean(Const.EMPLOYEE_ORDERSACCESS));
+                user.setOrdersRootReadOnly(resultSet.getBoolean(Const.EMPLOYEE_ORDERSREADONLY));
                 counter++;
             }
         }
@@ -160,45 +139,6 @@ public class DatabaseHandler extends Configs{
             return null;
         else
             return user;
-    }
-
-    public static void addEmployee(String surname, String name, String patronymic,
-                                   LocalDate birthDate, String position, double salary, String login, String password,
-                                   boolean menuRoot, boolean menuRootReadOnly, boolean employeesRoot,
-                                   boolean employeesRootReadOnly, boolean ordersRoot, boolean ordersRootReadOnly)
-    {
-        String request = "INSERT INTO " + Const.STAFF_TABLE + "(" + Const.EMPLOYEE_SURNAME + "," + Const.EMPLOYEE_NAME +
-                "," + Const.EMPLOYEE_PATRONYMIC + "," + Const.EMPLOYEE_BIRTHDAY + "," + Const.EMPLOYEE_POSITION + "," +
-                Const.EMPLOYEE_SALARY + "," + Const.EMPLOYEE_LOGIN + "," + Const.EMPLOYEE_PASSWORD + "," +
-                Const.EMPLOYEE_MENUACCESS + "," + Const.EMPLOYEE_MENUREADONLY + "," + Const.EMPLOYEE_STAFFACCESS + "," +
-                Const.EMPLOYEE_STAFFREADONLY + "," + Const.EMPLOYEE_ORDERSACCESS + "," + Const.EMPLOYEE_ORDERSREADONLY +
-                ")" + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-
-        PreparedStatement prSt = null;
-        try {
-            prSt = getDbConnection().prepareStatement(request);
-
-            prSt.setString(1, surname);
-            prSt.setString(2, name);
-            prSt.setString(3, patronymic);
-            prSt.setDate(4, java.sql.Date.valueOf(birthDate));
-            prSt.setString(5, position);
-            prSt.setDouble(6, salary);
-            prSt.setString(7, login);
-            prSt.setString(8, password);
-            prSt.setBoolean(9, menuRoot);
-            prSt.setBoolean(10, menuRootReadOnly);
-            prSt.setBoolean(11, employeesRoot);
-            prSt.setBoolean(12, employeesRootReadOnly);
-            prSt.setBoolean(13, ordersRoot);
-            prSt.setBoolean(14, ordersRootReadOnly);
-
-            prSt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
     public static void addEmployee(Employee employee)
@@ -214,20 +154,20 @@ public class DatabaseHandler extends Configs{
         try {
             prSt = getDbConnection().prepareStatement(request);
 
-            prSt.setString(1, employee.surname);
-            prSt.setString(2, employee.name);
-            prSt.setString(3, employee.patronymic);
-            prSt.setDate(4, java.sql.Date.valueOf(employee.birthDate));
-            prSt.setString(5, employee.position);
-            prSt.setDouble(6, employee.salary);
-            prSt.setString(7, employee.login);
-            prSt.setString(8, employee.password);
-            prSt.setBoolean(9, employee.menuRoot);
-            prSt.setBoolean(10, employee.menuRootReadOnly);
-            prSt.setBoolean(11, employee.employeesRoot);
-            prSt.setBoolean(12, employee.employeesRootReadOnly);
-            prSt.setBoolean(13, employee.ordersRoot);
-            prSt.setBoolean(14, employee.ordersRootReadOnly);
+            prSt.setString(1, employee.getSurname());
+            prSt.setString(2, employee.getName());
+            prSt.setString(3, employee.getPatronymic());
+            prSt.setDate(4, java.sql.Date.valueOf(employee.getBirthDate()));
+            prSt.setString(5, employee.getPosition());
+            prSt.setDouble(6, employee.getSalary());
+            prSt.setString(7, employee.getLogin());
+            prSt.setString(8, employee.getPassword());
+            prSt.setBoolean(9, employee.isMenuRoot());
+            prSt.setBoolean(10, employee.isMenuRootReadOnly());
+            prSt.setBoolean(11, employee.isEmployeesRoot());
+            prSt.setBoolean(12, employee.isEmployeesRootReadOnly());
+            prSt.setBoolean(13, employee.isOrdersRoot());
+            prSt.setBoolean(14, employee.isOrdersRootReadOnly());
 
             prSt.executeUpdate();
         } catch (SQLException e) {
@@ -284,22 +224,22 @@ public class DatabaseHandler extends Configs{
             while (resultSet.next())
             {
                 Employee employee = new Employee();
-                employee.surname = resultSet.getString(Const.EMPLOYEE_SURNAME);
-                employee.name = resultSet.getString(Const.EMPLOYEE_NAME);
-                employee.patronymic = resultSet.getString(Const.EMPLOYEE_PATRONYMIC);
-                employee.birthDate = Instant.ofEpochMilli(resultSet.getDate(Const.EMPLOYEE_BIRTHDAY).
-                        getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
-                employee.position = resultSet.getString(Const.EMPLOYEE_POSITION);
-                employee.salary = resultSet.getDouble(Const.EMPLOYEE_SALARY);
-                employee.login = resultSet.getString(Const.EMPLOYEE_LOGIN);
-                employee.password = resultSet.getString(Const.EMPLOYEE_PASSWORD);
-                employee.menuRoot = resultSet.getBoolean(Const.EMPLOYEE_MENUACCESS);
-                employee.menuRootReadOnly = resultSet.getBoolean(Const.EMPLOYEE_MENUREADONLY);
-                employee.employeesRoot = resultSet.getBoolean(Const.EMPLOYEE_STAFFACCESS);
-                employee.employeesRootReadOnly = resultSet.getBoolean(Const.EMPLOYEE_STAFFREADONLY);
-                employee.ordersRoot = resultSet.getBoolean(Const.EMPLOYEE_ORDERSACCESS);
-                employee.ordersRootReadOnly = resultSet.getBoolean(Const.EMPLOYEE_ORDERSREADONLY);
-                employee.setSNP(employee.surname + " " + employee.name + " " + employee.patronymic);
+                employee.setSurname(resultSet.getString(Const.EMPLOYEE_SURNAME));
+                employee.setName(resultSet.getString(Const.EMPLOYEE_NAME));
+                employee.setPatronymic(resultSet.getString(Const.EMPLOYEE_PATRONYMIC));
+                employee.setBirthDate(Instant.ofEpochMilli(resultSet.getDate(Const.EMPLOYEE_BIRTHDAY).
+                        getTime()).atZone(ZoneId.systemDefault()).toLocalDate());
+                employee.setPosition(resultSet.getString(Const.EMPLOYEE_POSITION));
+                employee.setSalary(resultSet.getDouble(Const.EMPLOYEE_SALARY));
+                employee.setLogin(resultSet.getString(Const.EMPLOYEE_LOGIN));
+                employee.setPassword(resultSet.getString(Const.EMPLOYEE_PASSWORD));
+                employee.setMenuRoot(resultSet.getBoolean(Const.EMPLOYEE_MENUACCESS));
+                employee.setMenuRootReadOnly(resultSet.getBoolean(Const.EMPLOYEE_MENUREADONLY));
+                employee.setEmployeesRoot(resultSet.getBoolean(Const.EMPLOYEE_STAFFACCESS));
+                employee.setEmployeesRootReadOnly(resultSet.getBoolean(Const.EMPLOYEE_STAFFREADONLY));
+                employee.setOrdersRoot(resultSet.getBoolean(Const.EMPLOYEE_ORDERSACCESS));
+                employee.setOrdersRootReadOnly(resultSet.getBoolean(Const.EMPLOYEE_ORDERSREADONLY));
+                employee.setSNP(employee.getSurname() + " " + employee.getName() + " " + employee.getPatronymic());
                 staff.add(employee);
             }
         }
@@ -370,7 +310,7 @@ public class DatabaseHandler extends Configs{
 
                 prSt.setString(1, section.getType());
                 prSt.setString(2, section.getName());
-                prSt.setDouble(3, section.getPrice());
+                prSt.setDouble(3, section.getPrice()/section.getQuantity());
                 prSt.setInt(4, section.getOutput());
                 prSt.setInt(5, section.getQuantity());
 
@@ -406,7 +346,7 @@ public class DatabaseHandler extends Configs{
         return orders;
     }
 
-    public static Bill getBill(int number)
+    private static Bill getBill(int number)
     {
         Bill bill = new Bill();
         ResultSet resultSet = null;
